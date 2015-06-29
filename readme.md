@@ -1,10 +1,10 @@
-http://ka-angularjs-todo.herokuapp.com
+a.k.a. http://nwnlist.herokuapp.com
 
 ## Deploy
 
 ```sh
-git clone https://github.com/kaosf/heroku-angularjs-todo.git
-cd heroku-angularjs-todo
+git clone git@github.com:NWNList/nwnlist.git
+cd nwnlist
 heroku create <appname>
 git push heroku master
 ```
