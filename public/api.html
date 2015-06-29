@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="NWNList">
+<head>
+  <meta charset="UTF-8">
+  <title>NWNList Scry</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <style>
+    .scry-header {
+      text-align: center;
+    }
+
+    .scry-header h1 {
+      color: #ad5a8a;
+    }
+
+    .scry-header h2 {
+      font-weight: thin;
+    }
+
+    .top-nav {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <br>
+      <a href="/">Back</a>
+      <h2>NWNList API Documentation</h2>
+      <p>This API provides access to Skywing's master server.</p>
+      <pre>http://www.nwnlist.com/</pre>
+      <h3>Products</h3>
+      <p>Returns a list of Neverwinter Nights products.</p>
+      <p>Request (GET):</p>
+      <pre>http://www.nwnlist.com/products</pre>
+      <p>Response:</p>
+      <pre>["NWN1","NWN2"]</pre>
+      <h3>Servers</h3>
+      <p>Returns a list of active servers given a product.</p>
+      <p>Request (GET):</p>
+      <pre>http://www.nwnlist.com/servers/<strong>NWN2</strong></pre>
+      <p>Response:</p>
+      <pre>[{server_name: 'Example Neverwinter Nights 2 Server', ...}]</pre>
+      <h3>Count</h3>
+      <p>Returns a count (as a string, sorry) of how many people are playing given a product.</p>
+      <p>Request (GET):</p>
+      <pre>http://www.nwnlist.com/count/<strong>NWN1</strong></pre>
+      <p>Response:</p>
+      <pre>["924"]</pre>
+      <h3>Register</h3>
+      <p>Registers an active Neverwinter Nights server with Skywing's master server.</p>
+      <p>Coming soon.</p>
+    </div>
+  </div>
+</body>
+</html>

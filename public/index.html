@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="NWNList">
+<head>
+  <script type="text/javascript" async="" src="//www.google-analytics.com/ga.js"></script>
+  <script type="text/javascript">window["_gaUserPrefs"] = { ioo : function() { return true; } }</script>
+  <meta charset="UTF-8">
+  <title>NWNList Scry</title>
+  <meta name="description" content="A list of persistent worlds for Neverwinter Nights 1 and 2 + info for players and admins.">
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <script src="ServerListCtrl.js"></script>
+  <style>
+
+    .scry-header {
+      text-align: center;
+    }
+
+    .scry-header h1 {
+      color: #ad5a8a;
+    }
+
+    .scry-header h2 {
+      font-weight: thin;
+    }
+
+    .top-nav {
+      display: inline-block;
+    }
+
+    .donate-zone {
+      position: absolute;
+      top: -1px;
+      text-align: center;
+      border: 1px solid #CCC;
+      padding: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      right: 20px;
+      background: #f8f8f8;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .logo-zone {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+    }
+
+    .form-control[readonly] {
+      background-color: white;
+    }
+  </style>
+</head>
+<body class="container" ng-controller="ServerListCtrl">
+  <br>
+  <div style="text-align: center;">
+    <ul class="nav nav-pills top-nav">
+      <li role="presentation" class="active"><a href="#">Server List</a></li>
+      <li role="presentation"><a href="https://www.gog.com/game/neverwinter_nights_2_complete?pp=1e9f8443e77bed522f7c378e5102178c70a9674e">Buy NWN2</a></li>
+      <li role="presentation"><a href="https://www.gog.com/game/neverwinter_nights_diamond_edition?pp=1e9f8443e77bed522f7c378e5102178c70a9674e">Buy NWN1</a></li>
+      <li role="presentation"><a href='https://ce-update.mst.valhallalegends.com/CE/Latest'>Get the Client Extension</a></li>
+      <li role="presentation"><a href="https://neverwintervault.org/">Community Content</a></li>
+    </ul>
+  </div>
+  <div class="scry-header">
+    <h1>NWNList Scry</h1>
+    <h2 class="lead">Live-updating list of persistent worlds for Neverwinter Nights 1 and 2.</h2>
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ng-class="{'active': nwn1}"><a href="#" style="text-align: center;" ng-click="changeActiveProduct('NWN1');">NWN1 <span ng-if="products['NWN1'].count">({{products["NWN1"].count}} Players)</span></a></li>
+          <li ng-class="{'active': nwn2}"><a href="#" style="text-align: center;"  ng-click="changeActiveProduct('NWN2');">NWN2 <span ng-if="products['NWN2'].count">({{products["NWN2"].count}} Players)</span></a></li>
+<!--           <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category<span>: {{selectedCategoryName}}</span> <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" ng-click="setSelectedCategory('all');">All</a></li>
+              <li ng-repeat="(key, value) in categories"><a href="#" ng-click="setSelectedCategory(key);">{{value}}</a></li>
+            </ul>
+          </li> -->
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" style="min-width: 15em; margin-right: 2em;" placeholder="Search" ng-model="searchTerm.$">
+          </div>
+        </form>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="row">
+    <div class="col-xs-12" ng-repeat="product in products">
+      <table ng-if="activeProduct == product.name" class="table table-hover panel panel-default">
+        <th>Server</th><th>Description</th><th style="min-width: 7em;">Players</th><th>Category</th><th>Direct Connect</th>
+        <tr ng-repeat="server in product.servers | filter: searchTerm | orderBy: activeOrdering">
+          <td>
+            <a href="{{server.module_url}}" target="_blank"  ng-click="linkOut(server.module_url)" ng-if="server.module_url">{{server.server_name}}</a>
+            <span ng-if="!server.module_url">{{server.server_name}}</span></td>
+          <td>{{server.server_description}} {{server.module_description}}</td>
+          <td style="min-width: 7em;">{{server.active_player_count}} / {{server.maximum_player_count}}</td>
+          <td>{{categories[server.game_type]}}</td>
+          <td><input class="form-control input-sm uneditable-input" style="min-width: 13em" value="{{server.server_address}}" readonly="readonly"></input></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div>
+
+
+
+<hr>
+<div>
+  <h2 id="for-nwn2-players" name="for-nwn2-players">NWN2 Players</h2>
+
+  <p>NWN2 players should download Skywing's <a href="http://ce-update.mst.valhallalegends.com/CE/Latest">NWN2 Client
+Extension</a> and install it according to the readme. Once running the new
+CE, just go to the Join Internet Game screen as normal, and the server browser list should function as it used to (but will use Skywing's directory instead).</p>
+
+  <p>This CE release also has self-update support that will provide notification and optionally allow integrated installation (if user selects to do so) of new CE releases when they are made available.</p>
+
+
+</div>
+<div>
+  <h2 id="for-admins" name="for-admins">PW Admins</h2>
+
+  <p>Persistent world admins should install <a href="http://nwnx.org/">NWNX</a> and <a href="http://nwnx.org/phpBB2/viewtopic.php?t=2036">xp_bugfix 1.0.20</a>
+or greater. This will allow your server to automatically send data to
+us. Remember to provide a Module URL (usually a link to your forums) via
+the nwn2player.ini and a
+Module Description via the toolset.</p>
+
+  <p>If you're unable to install xp_bugfix on your server or would prefer not to, send an email to <a href="mailto:nwnlist@gmail.com">nwnlist@gmail.com</a> and we'll make sure you're on the manual list.</p>
+
+
+</div>
+
+
+
+<hr>
+
+    <div class="footer">
+      <p>Special thanks to Bioware, Obsidian, the hosts, the builders, the DMs, and you.</p>
+      <p>Developers: we have an open RESTful <a href="/api">API</a>.</p>
+    </div>
+
+    </div>
+<script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36821173-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+<div class="donate-zone">
+  <h5>Help keep us going!</h5>
+  <p>1 month: $9<br>
+  1 year: $108</p>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="2V2K28UNTS6DA">
+  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Support NWNList with PayPal">
+  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </form>
+</div>
+
+<div class="logo-zone">
+  <a href="/"><img style="height: 50%; width: 50%;" src="nwn_eye.jpg"></a>
+</div>
+
+</body>
+</html>
