@@ -86,9 +86,7 @@ NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval',
   $scope.refresh();
 
   $scope.refresher = $interval(function() {
-    angular.forEach($scope.products, function(product, key){
-      $scope.refreshServers(product.name);
-    });
-  }, 30000);
+    $scope.refreshServers($scope.activeProduct);
+  }, 60000);
 
 }]);
