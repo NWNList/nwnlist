@@ -7,7 +7,7 @@ require 'rack/throttle'
 use Rack::Timeout
 Rack::Timeout.timeout = 15
 
-use Rack::Throttle::Minute, :max => 4
+use Rack::Throttle::Minute, :max => 10
 
 run Sinatra::Application
 
