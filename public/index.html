@@ -107,7 +107,7 @@
           <td>
             <a ng-href="{{server.module_url}}" target="_blank"  ng-click="linkOut(server.module_url)" ng-if="server.module_url">{{server.server_name}}</a>
             <span ng-if="!server.module_url">{{server.server_name}}</span></td>
-          <td><span ng-bind-html="{{server.server_description | linky}}"></span> <span ng-bind-html="{{server.module_description | linky}}"></span></td>
+          <td><span ng-bind-html="server.server_description | linky"></span> <span ng-bind-html="server.module_description | linky"></span></td>
           <td style="min-width: 7em;">{{server.active_player_count}} / {{server.maximum_player_count}}</td>
           <td>{{categories[server.game_type]}}</td>
           <td><input class="form-control input-sm uneditable-input" style="min-width: 13em" value="{{server.server_address}}" readonly="readonly"></input></td>
