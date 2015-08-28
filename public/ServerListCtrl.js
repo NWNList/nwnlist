@@ -1,17 +1,4 @@
-var NWNList = angular.module('NWNList',["handleUrls"]);
-
-NWNList.filter("handleUrls", function () {
-  return function (link) {
-      var result;
-      var startingUrl = "http://";
-      if (link.this.indexOf("www") == 0) {
-        result = startingUrl + link;
-      } else {
-        result = link;
-      }
-      return result;
-  }
-});
+var NWNList = angular.module('NWNList', []);
 
 NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', function($scope, $http, $filter, $interval, $window) {
   $scope.products = {};
@@ -74,6 +61,9 @@ NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval',
     $http.get('/servers/' + product).success(function(data, status, headers, config) {
       angular.forEach(data["nw_game_server"], function(server, key){
         server["active_player_count"] = parseInt(server["active_player_count"]);
+        if (server["module_url"].indexOf("www") == 0) {
+          server["module_url"] = "http://" + server["module_url"]
+        }
       });
       $scope.products[product].servers = data["nw_game_server"];
     }).error(function(data, status, headers, config) {
