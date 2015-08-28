@@ -4,7 +4,7 @@ NWNList.filter("handleUrls", function () {
   return function (link) {
       var result;
       var startingUrl = "http://";
-      if (link.startsWith("www")) {
+      if (link.this.indexOf("www") == 0) {
         result = startingUrl + link;
       } else {
         result = link;
@@ -12,10 +12,6 @@ NWNList.filter("handleUrls", function () {
       return result;
   }
 });
-
-String.prototype.startsWith = function (str) {
-  return this.indexOf(str) == 0;
-};
 
 NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', 'handleUrls', function($scope, $http, $filter, $interval, $window, handleUrls) {
   $scope.products = {};
