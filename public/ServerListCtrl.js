@@ -61,7 +61,7 @@ NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval',
     $http.get('/servers/' + product).success(function(data, status, headers, config) {
       angular.forEach(data["nw_game_server"], function(server, key){
         server["active_player_count"] = parseInt(server["active_player_count"]);
-        if (server["module_url"].indexOf("www") == 0) {
+        if (server["module_url"] && (server["module_url"].indexOf("www") == 0)) {
           server["module_url"] = "http://" + server["module_url"]
         }
       });
