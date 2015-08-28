@@ -1,5 +1,22 @@
 var NWNList = angular.module('NWNList',[]);
 
+NWNList.filter("handleUrls", function () {
+  return function (link) {
+      var result;
+      var startingUrl = "http://";
+      if (link.startsWith("www")) {
+        result = startingUrl + link;
+      } else {
+        result = link;
+      }
+      return result;
+  }
+});
+
+String.prototype.startsWith = function (str) {
+  return this.indexOf(str) == 0;
+};
+
 NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', function($scope, $http, $filter, $interval, $window) {
   $scope.products = {};
   $scope.activeOrdering = "-active_player_count";

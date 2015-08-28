@@ -104,7 +104,7 @@
         <th>Server</th><th>Description</th><th style="min-width: 7em;">Players</th><th>Category</th><th>Direct Connect</th>
         <tr ng-repeat="server in product.servers | filter: searchTerm | orderBy: activeOrdering">
           <td>
-            <a href="{{server.module_url}}" target="_blank"  ng-click="linkOut(server.module_url)" ng-if="server.module_url">{{server.server_name}}</a>
+            <a ng-href="{{server.module_url | handleUrls}}" target="_blank"  ng-click="linkOut(server.module_url)" ng-if="server.module_url">{{server.server_name}}</a>
             <span ng-if="!server.module_url">{{server.server_name}}</span></td>
           <td>{{server.server_description}} {{server.module_description}}</td>
           <td style="min-width: 7em;">{{server.active_player_count}} / {{server.maximum_player_count}}</td>
