@@ -1,4 +1,4 @@
-var NWNList = angular.module('NWNList', []);
+var NWNList = angular.module('NWNList', ["ngSanitize"]);
 
 NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', function($scope, $http, $filter, $interval, $window) {
   $scope.products = {};
