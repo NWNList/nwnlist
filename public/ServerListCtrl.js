@@ -1,4 +1,4 @@
-var NWNList = angular.module('NWNList',[]);
+var NWNList = angular.module('NWNList',["handleUrls"]);
 
 NWNList.filter("handleUrls", function () {
   return function (link) {
@@ -13,7 +13,7 @@ NWNList.filter("handleUrls", function () {
   }
 });
 
-NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', 'handleUrls', function($scope, $http, $filter, $interval, $window, handleUrls) {
+NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval', '$window', function($scope, $http, $filter, $interval, $window) {
   $scope.products = {};
   $scope.activeOrdering = "-active_player_count";
   $scope.activeProduct = "NWN2";
