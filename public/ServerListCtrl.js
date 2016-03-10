@@ -59,13 +59,13 @@ NWNList.controller('ServerListCtrl', ['$scope', '$http', '$filter', '$interval',
       // or server returns response with an error status.
     });
     $http.get('/servers/' + product).success(function(data, status, headers, config) {
-      angular.forEach(data["nw_game_server"], function(server, key){
+      angular.forEach(data, function(server, key){
         server["active_player_count"] = parseInt(server["active_player_count"]);
         if (server["module_url"] && (server["module_url"].indexOf("www") == 0)) {
           server["module_url"] = "http://" + server["module_url"];
         }
       });
-      $scope.products[product].servers = data["nw_game_server"];
+      $scope.products[product].servers = data;
     }).error(function(data, status, headers, config) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
